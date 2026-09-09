@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAGO · Portal del Estudiante</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="PIE.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="logo-link" style="text-decoration:none; color:inherit;">
+                <div class="brand-container">
+                    <img src="https://admin.iemariacano.edu.co/utilidades/escudo.gif" alt="Escudo" class="institutional-logo">
+                    <div>
+                        <span class="brand-text">I.E. MARÍA CANO</span>
+                        <div style="font-family: 'DM Mono'; font-size: 0.7rem; color: var(--accent);">PORTAL ESTUDIANTIL · MAGO</div>
+                    </div>
+                </div>
+            </a>
+            
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#" class="active">INICIO</a></li>
+                    <li><a href="ASISTENCIA/ESTUDIANTE.html">MI ASISTENCIA</a></li>
+                    <li><a href="PERMISOS/PERMISOS.html">PERMISOS</a></li>
+                    <li><a href="/MAGO/VISTA/INDEX/SALIR/SALIR.HTML">SALIR</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <span class="badge">🎓 Panel del Estudiante</span>
+            <h1 id="greeting">Hola, Estudiante</h1>
+            <p>Consulta tus asistencias, estado de permisos y código de acceso institucional.</p>
+        </div>
+        <div>
+            <a href="PERMISOS/PERMISOS.html" class="btn btn-primary" id="btnQuickPermit">+ Solicitar Permiso</a>
+        </div>
+    </section>
+
+    <main class="wrapper">
+        <div class="main-content">
+            
+        <!--ORGANIZAR Y CONECTAR CON DATABASE-->
+            <section>
+                <span class="section-label">// Resumen de Asistencia (Periodo Actual)</span>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value" style="color: var(--accent-success);">96%</div>
+                        <div class="metric-label">Asistencia Total</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">2</div>
+                        <div class="metric-label">Fallas Injustificadas</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">4</div>
+                        <div class="metric-label">Permisos Aprobados</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card-box">
+                <span class="section-label">// Trámites Frecuentes</span>
+                <h3>Gestión Rápida de Movilidad</h3>
+                <div class="actions-grid">
+                    <a href="#" class="action-card">
+                        <span class="action-icon">📝</span>
+                        <div>
+                            <strong>Crear Solicitud</strong>
+                            <p style="font-size:0.8rem; color: var(--muted);">Salida anticipada o excusa médica</p>
+                        </div>
+                    </a>
+                    <a href="#" class="action-card">
+                        <span class="action-icon">📅</span>
+                        <div>
+                            <strong>Historial de Clases</strong>
+                            <p style="font-size:0.8rem; color: var(--muted);">Registro detallado por asignatura</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!--ORGANIZAR Y CONECTAR CON LA BASE DE DATOS-->
+            <section class="card-box">
+                <span class="section-label">// Estado de Solicitudes</span>
+                <h3>Últimas Salidas / Permisos Registrados</h3>
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Motivo</th>
+                            <th>Hora Salida</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>24/02/2026</td>
+                            <td>Cita Médica EPS</td>
+                            <td>10:30 AM</td>
+                            <td><span class="status-pill approved">Aprobado</span></td>
+                        </tr>
+                        <tr>
+                            <td>01/03/2026</td>
+                            <td>Calamidad Doméstica</td>
+                            <td>11:00 AM</td>
+                            <td><span class="status-pill pending">En Revisión</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </div>
+
+        <aside class="sidebar">
+            
+            <div class="student-profile-card">
+                <div class="avatar">👨‍🎓</div>
+                <h3 style="font-size: 1.2rem;">Juan Pablo Pérez</h3>
+                <p style="font-family: 'DM Mono'; font-size: 0.85rem; color: var(--accent);">Grado 11°A · T.I. 1012345678</p>
+                <hr style="margin: 1rem 0; border: none; border-top: 1px solid var(--border);">
+                <p style="font-size: 0.8rem; color: var(--muted);">Media Técnica en Desarrollo de Software</p>
+            </div>
+
+            <!--CONECTAR CON LOS ESTUDIANTES DE LA BASE DE DATOS Y Y ORGANIZAR QR-->
+            <div class="aside-card">
+                <div class="aside-card-header">
+                    <h3>Carné Digital MAGO</h3>
+                </div>
+                <div class="aside-card-body" style="text-align: center;">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=EST-1012345678" alt="QR Acceso" style="border-radius: 8px;">
+                    <p style="font-size: 0.75rem; color: var(--muted); margin-top: 0.5rem;">Escanea en el punto de acceso al ingresar/salir.</p>
+                </div>
+            </div>
+
+            <div class="aside-card">
+                <div class="aside-card-header">
+                    <h3>Acudiente Asignado</h3>
+                </div>
+                <div class="aside-card-body" style="font-size: 0.85rem;">
+                    <strong>María Carmen Pérez</strong>
+                    <p style="color: var(--muted);">📱 +57 300 123 4567</p>
+                    <p style="font-size: 0.75rem; color: var(--accent); margin-top: 0.4rem;">● Recibe notificaciones SMS/Email</p>
+                </div>
+            </div>
+
+        </aside>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h4 style="color: var(--text);">MAGO · Movilidad, Asistencia y Gestión Operativa</h4>
+                <p>© 2026 I.E. María Cano. Todos los derechos reservados.</p>
+            </div>
+            <div>
+                <p>Soporte Institucional: soporte@iemariacano.edu.co</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Personalización de Saludo dinámico según la hora
+            const greetingEl = document.getElementById('greeting');
+            const hour = new Date().getHours();
+            let greetingText = 'Hola, Estudiante';
+
+            if (hour < 12) greetingText = '¡Buenos días, Estudiante!';
+            else if (hour < 18) greetingText = '¡Buenas tardes, Estudiante!';
+            else greetingText = '¡Buenas noches, Estudiante!';
+
+            if (greetingEl) greetingEl.textContent = greetingText;
+
+            // 2. Control de Enlace Activo en Navbar
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            const currentPath = window.location.pathname.split('/').pop();
+
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+
+            // 3. Acción rápida: Solicitud de permiso
+            const btnQuickPermit = document.getElementById('btnQuickPermit');
+            if (btnQuickPermit) {
+                btnQuickPermit.addEventListener('click', () => {
+                    window.location.href = 'PERMISOS/SOLICITAR.html';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

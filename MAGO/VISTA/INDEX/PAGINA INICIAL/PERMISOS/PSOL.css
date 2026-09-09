@@ -1,0 +1,202 @@
+/* ══════════════════════════════════════════════════════════════════
+   SISTEMA MAGO — MÓDULO ESTUDIANTE (SOLICITUD DE PERMISO)
+   ══════════════════════════════════════════════════════════════════ */
+
+:root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --surface2: #f0f2f8;
+    --border: rgba(0, 0, 0, 0.08);
+    --text: #111111;
+    --muted: #5b677b;
+    
+    --accent: #c62828;
+    --accent-hover: #a51e1e;
+    --accent-light: rgba(198, 40, 40, 0.08);
+    
+    --info: #1565c0;
+    --info-bg: rgba(21, 101, 192, 0.1);
+    
+    --radius: 16px;
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+    position: relative;
+    background-image: url('https://iemariacano.edu.co/wp-content/uploads/2020/02/fondo.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(248, 249, 252, 0.88);
+    z-index: -1;
+}
+
+/* Tipografía de Marca */
+h2 {
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400;
+    color: var(--text);
+}
+
+.font-mono { font-family: 'DM Mono', monospace; }
+.font-bold { font-weight: 700; }
+
+/* Navegación */
+.nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(248, 249, 252, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-brand {
+    text-decoration: none;
+    color: var(--text);
+}
+
+.brand-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+}
+
+.nav-list a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-list a.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+
+/* Tarjeta Formulario Central */
+.wrapper-student {
+    max-width: 520px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+}
+
+.form-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--accent);
+}
+
+.section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+    display: inline-block;
+    margin-bottom: 0.75rem;
+}
+
+/* Campos de Formulario */
+.filter-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+}
+
+.filter-group select,
+.filter-group input {
+    width: 100%;
+    padding: 0.75rem 0.85rem;
+    background-color: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+    border-color: var(--accent);
+    background-color: var(--surface);
+}
+
+/* Componentes Visuales */
+.badge {
+    font-family: 'DM Mono', monospace;
+    padding: 0.3rem 0.8rem;
+    border-radius: 40px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.status-excusa {
+    background: var(--info-bg);
+    color: var(--info);
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: white;
+    padding: 0.85rem;
+    border-radius: 40px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    transition: all 0.2s ease;
+    font-family: 'Outfit', sans-serif;
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    box-shadow: 0 4px 12px rgba(198, 40, 40, 0.25);
+}

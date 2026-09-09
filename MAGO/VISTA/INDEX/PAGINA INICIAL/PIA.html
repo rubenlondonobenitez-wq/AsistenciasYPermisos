@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAGO · Portal de Acudientes</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="PIA.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="logo-link">
+                <div class="brand-container">
+                    <img src="https://admin.iemariacano.edu.co/utilidades/escudo.gif" 
+                         alt="Escudo I.E. María Cano" 
+                         class="institutional-logo">
+                    
+                    <div style="display: flex; flex-direction: column; margin-left: 12px;">
+                        <span class="brand-text">I.E. MARÍA CANO</span>
+                        <span style="font-family: 'DM Mono'; font-size: 0.7rem; color: var(--accent);">MAGO · PORTAL ACUDIENTES</span>
+                    </div>
+                </div>
+            </a>
+            
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#" class="active">INICIO</a></li>
+                    <li><a href="mis_estudiantes.html">MIS ACUDIDOS</a></li>
+                    <li><a href="/MAGO/VISTA/INDEX/SALIR/SALIR.HTML">SALIR</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="badge">👪 MAGO · Portal para Acudientes</span>
+            <h1>Seguimiento y Control<br>de sus Acudidos</h1>
+            <p>Consulte el registro de asistencia en tiempo real, gestione autorizaciones de salida, radique excusas médicas y reciba alertas sobre la movilidad de sus estudiantes.</p>
+            <div class="hero-actions">
+                <a href="#asistencia" class="btn btn-primary">Ver Asistencia Hoy</a>
+                <a href="#permisos" class="btn btn-outline">Solicitar Permiso</a>
+            </div>
+        </div>
+    </section>
+
+    <main class="wrapper">
+        <div class="main-content">
+            
+            <section class="intro-section fade-up">
+                <span class="section-label">// Estado de sus Acudidos</span>
+                <div class="intro-grid">
+                    <div class="intro-text">
+                        <h2>Bienvenido al Portal de Familias</h2>
+                        <p>Supervise en tiempo real el cumplimiento del horario escolar y mantenga una comunicación fluida con la institución educativa.</p>
+                        <ul class="feature-list">
+                            <li>Notificaciones al instante del ingreso al colegio</li>
+                            <li>Justificación en línea de inasistencias y retardos</li>
+                            <li>Solicitud digital de permisos de salida anticipada</li>
+                        </ul>
+                    </div>
+                    <div class="intro-highlight">
+                        <div class="code-block">
+                            <span class="code-line">> Acudiente: María Rodríguez</span>
+                            <span class="code-line">> Rol: Acudiente Autorizado</span>
+                            <span class="code-line">> Notificaciones: WhatsApp Activo</span>
+                        </div>
+                        <div class="summary-box">
+                            <h4>📊 Resumen Mensual</h4>
+                            <div class="summary-stats">
+                                <div class="stat">
+                                    <span class="stat-value">2</span>
+                                    <span class="stat-label">Estudiantes a cargo</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">97%</span>
+                                    <span class="stat-label">Asistencia promedio</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="temas-section fade-up">
+                <span class="section-label">// Servicios Disponibles</span>
+                <div class="temas-grid">
+                    <article class="card icon-card">
+                        <div class="card-icon">🕒</div>
+                        <h3>Entradas y Salidas</h3>
+                        <p>Consulte los horarios exactos de marcación en la portería escolar.</p>
+                        <a href="movilidad_estudiante.html" class="card-link">Ver registro →</a>
+                    </article>
+                    
+                    <article class="card icon-card">
+                        <div class="card-icon">📅</div>
+                        <h3>Asistencia por Materia</h3>
+                        <p>Siga el registro de asistencia realizado por cada docente en el aula.</p>
+                        <a href="asistencia_materias.html" class="card-link">Consultar →</a>
+                    </article>
+                    
+                    <article class="card icon-card">
+                        <div class="card-icon">📝</div>
+                        <h3>Excusas y Permisos</h3>
+                        <p>Radique justificantes o autorice salidas antes del término de la jornada.</p>
+                        <a href="permisos_solicitud.html" class="card-link">Tramitar →</a>
+                    </article>
+                </div>
+            </section>
+
+            <section id="permisos" class="lmc-section fade-up">
+                <div class="recuadro-lmc-enhanced">
+                    <div class="lmc-header">
+                        <span class="lmc-badge">SOLICITUD RÁPIDA</span>
+                        <h3>Autorización de Salida Temprana</h3>
+                    </div>
+                    <p class="lmc-description">Si su representado necesita retirarse antes de finalizar la jornada, genere la autorización previa para validar la salida en portería.</p>
+                    <div class="lmc-actions">
+                        <a href="nueva_autorizacion.html" class="btn btn-secondary">Generar Autorización</a>
+                        <span class="status-indicator online">● Validación automática en portería</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <aside class="sidebar">
+            <div class="aside-card">
+                <div class="aside-card__header">
+                    <h3>Estudiantes Registrados</h3>
+                </div>
+                <div class="aside-card__content">
+                    <ul class="aside-list">
+                        <li>
+                            <strong>JUAN PÉREZ RODRÍGUEZ</strong>
+                            <span>Grado: 10-A · Estado: En Clase</span>
+                        </li>
+                        <li>
+                            <strong>SOFÍA PÉREZ RODRÍGUEZ</strong>
+                            <span>Grado: 7-B · Estado: En Clase</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="aside-card">
+                <div class="aside-card__header">
+                    <h3>Avisos Institucionales</h3>
+                </div>
+                <div class="aside-card__content">
+                    <ul class="aside-list">
+                        <li><strong>📅 15 MAR</strong><span>Entrega de informes académicos</span></li>
+                        <li><strong>📢 CIRCULAR</strong><span>Ajuste de horario jornada tarde</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="aside-card highlight-card">
+                <div class="aside-card__header">
+                    <h3>Canal de Notificaciones</h3>
+                </div>
+                <div class="aside-card__content">
+                    <div class="status-alert">
+                        <span class="status-badge">✅ WhatsApp Vinculado</span>
+                    </div>
+                    <div class="acudiente-info">
+                        <h4>Canal de Alertas Instantáneas</h4>
+                        <p>Asegúrese de mantener actualizado su número para recibir confirmaciones de ingreso/salida.</p>
+                        <a href="perfil_acudiente.html" class="btn btn-small btn-primary">Actualizar Teléfono →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recuadro-img-enhanced">
+                <div class="img-placeholder">
+                    <img src="https://iemariacano.edu.co/wp-content/uploads/2020/02/Escudo.png" 
+                         alt="Escudo I.E. María Cano" 
+                         style="max-width: 100%; height: auto;">
+                    <p>I.E. María Cano</p>
+                    <small>Comunidad y Familia Unida</small>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>MAGO · Portal Institucional del Acudiente</h4>
+                <p>© 2026 I.E. María Cano. Todos los derechos reservados.</p>
+            </div>
+            <div class="footer-section">
+                <p>📧 contacto@iemariacano.edu.co · 📞 +57 321 821 9948</p>
+                <p class="footer-small">Soporte técnico para acudientes disponible en horario lectivo</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="PIA.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solicitud de Permiso — Estudiante</title>
+  <link rel="stylesheet" href="PSOL.css">
+</head>
+<body>
+
+  <!-- Navegación -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="#" class="nav-brand">
+        <span class="brand-text">Sistema MAGO</span>
+      </a>
+      <ul class="nav-list">
+        <li><a href="#" class="active">Solicitar Permiso</a></li>
+        <li><a href="#">Mis Solicitudes</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Formulario Centralizado -->
+  <div class="wrapper-student" style="max-width: 520px; margin: 3rem auto; padding: 0 1.5rem;">
+    <div class="form-card">
+      <span class="section-label">Módulo de Permisos • Estudiante</span>
+      <h2 style="margin-bottom: 0.5rem;">Solicitar Permiso de Salida</h2>
+      <p style="color: var(--muted); font-size: 0.88rem; margin-bottom: 1.5rem;">
+        Diligencia el destino y destinatario. La hora y tus datos se registran automáticamente.
+      </p>
+
+      <form id="permissionForm" onsubmit="event.preventDefault();">
+        <!-- 1. Hora Automática -->
+        <div class="filter-group" style="margin-bottom: 1.25rem;">
+          <label>Hora de Registro (Automática)</label>
+          <div style="display: flex; align-items: center; gap: 0.5rem; background: var(--surface2); padding: 0.75rem 0.85rem; border: 1px solid var(--border); border-radius: 8px;">
+            <span style="color: var(--accent); font-size: 1.1rem;">⏱</span>
+            <span id="autoTimestamp" class="font-mono font-bold">08:42 AM</span>
+            <span class="badge status-excusa" style="margin-left: auto; font-size: 0.7rem;">Auto-generado</span>
+          </div>
+        </div>
+
+        <!-- 2. Información del Estudiante -->
+        <div class="filter-group" style="margin-bottom: 1.25rem;">
+          <label for="studentInfo">Estudiante Solicitante</label>
+          <input type="text" id="studentInfo" value="Juan Pablo Pérez — Grado 11°A" readonly style="background-color: var(--surface2); opacity: 0.85; cursor: not-allowed; font-weight: 600;">
+        </div>
+
+        <!-- 3. Lugar de Destino -->
+        <div class="filter-group" style="margin-bottom: 1.25rem;">
+          <label for="destination">Lugar de Destino *</label>
+          <select id="destination" required>
+            <option value="" disabled selected>Selecciona un lugar...</option>
+            <option value="papeleria">Papelería</option>
+            <option value="cafeteria">Cafetería</option>
+            <option value="coordinacion">Coordinación</option>
+            <option value="rectoria">Rectoría</option>
+            <option value="secretaria">Secretaría</option>
+            <option value="otro">Otro lugar</option>
+          </select>
+        </div>
+
+        <!-- 4. Persona Dirigida -->
+        <div class="filter-group" style="margin-bottom: 1.75rem;">
+          <label for="targetPerson">Dirigido a (Docente / Superior) *</label>
+          <input type="text" id="targetPerson" placeholder="Ej. Prof. Carlos Ramírez / Coordinación" required>
+        </div>
+
+        <!-- Enviar -->
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 0.85rem; font-size: 0.95rem;">
+          Enviar Solicitud
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="PSOL.js"></script>
+</body>
+</html>

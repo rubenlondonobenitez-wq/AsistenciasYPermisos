@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Sistema de Control de Asistencia y Movilidad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="DOC.css">
+  <style>
+    /* ── RESET Y BASE ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── TOKENS DE DISEÑO ── */
+:root {
+  /* Fondos */
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface2: #f5f5f5;
+  --border: rgba(0, 0, 0, 0.1);
+
+  /* Texto */
+  --text: #1a1a1a;
+  --muted: #555555;
+
+  /* Acentos - Rojo intenso, negro, blanco */
+  --accent: #E63946;
+  --accent2: #1a1a1a;
+  --accent3: #333333;
+  --accent4: #E63946;
+  --accent5: #cccccc;
+
+  /* Espaciado */
+  --radius: 16px;
+  --gap: 24px;
+}
+
+/* ── TIPOGRAFÍA ── */
+body,
+p,
+li,
+.card,
+.pill {
+  font-family: 'Outfit', sans-serif;
+}
+
+code,
+pre,
+.section-label,
+.pill,
+.complexity-table,
+.legal-mono {
+  font-family: 'DM Mono', monospace;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'DM Serif Display', serif;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 3rem;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-top: 1.5rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+/* ── NAV STICKY ── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 0;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--gap);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.nav-brand img {
+  height: 40px;
+  width: auto;
+}
+
+.nav-brand span {
+  font-family: 'DM Serif Display', serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+
+.nav-list {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-list a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+  padding-bottom: 0.25rem;
+}
+
+.nav-list a:hover,
+.nav-list a.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ── HERO MODULE ── */
+.hero-module {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 var(--gap);
+  animation: fadeUp 0.5s ease-out;
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+    url('https://iemariacano.edu.co/wp-content/uploads/2020/02/fondo.jpg') center / cover no-repeat;
+  border-radius: var(--radius);
+  padding: 3rem;
+  align-items: center;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.hero-content h1 {
+  color: white;
+  margin-bottom: 0;
+}
+
+.hero-badge-module {
+  background: var(--accent);
+  color: white;
+  border-radius: 40px;
+  padding: 0.5rem 1rem;
+  display: inline-block;
+  width: fit-content;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.875rem;
+}
+
+.hero-description {
+  color: rgb(255, 255, 255);
+  font-size: 1.2rem;
+}
+
+.hero-badge-lateral {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: center;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.hero-badge-lateral img {
+  width: 100px;
+  height: auto;
+}
+
+.big-number {
+  font-family: 'DM Mono', monospace;
+  color: white;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.topic-pills {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.pill {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 40px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  color: white;
+}
+
+.pill:hover {
+  transform: translateY(-2px);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.pill-accent {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.pill-accent2 {
+  background: var(--accent2);
+  color: white;
+  border-color: var(--accent2);
+}
+
+/* ── LAYOUT PRINCIPAL ── */
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--gap);
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  animation: fadeUp 0.5s ease-out;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+aside {
+  position: sticky;
+  top: 80px;
+  align-self: start;
+}
+
+/* ── INTRO SECTION ── */
+.intro-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+}
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.intro-highlight {
+  background: var(--accent2);
+  color: white;
+  padding: 1.5rem;
+  border-radius: var(--radius);
+}
+
+.intro-highlight p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ── TEMAS PRINCIPALES ── */
+.temas-principales {
+  margin-top: 1rem;
+}
+
+.temas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: all 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(230, 57, 70, 0.15);
+  border-color: var(--accent);
+}
+
+.icon-card {
+  text-align: center;
+}
+
+.icon-card .icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+/* ── SISTEMAS DE GRID ── */
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap);
+}
+
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+
+/* ── COMPONENTES ESPECIALES ── */
+.complexity-table {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.85rem;
+  border-collapse: collapse;
+  width: 100%;
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.complexity-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.code-block {
+  background: #1a1a1a;
+  color: #e2e8f0;
+  font-family: 'DM Mono', monospace;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  overflow-x: auto;
+}
+
+.code-block .kw {
+  color: #ff79c6;
+}
+
+.code-block .fn {
+  color: #50fa7b;
+}
+
+.code-block .str {
+  color: #f1fa8c;
+}
+
+.flow-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: var(--surface2);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.flow-node {
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.decision {
+  background: var(--accent);
+  color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.mindmap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.mindmap-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 40px;
+  padding: 0.75rem 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.mindmap-item:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.summary-box {
+  background: var(--accent2);
+  color: white;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin: 1rem 0;
+}
+
+.summary-box p {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* ── LISTAS PERSONALIZADAS ── */
+ul.items {
+  list-style: none;
+}
+
+ul.items li {
+  padding-left: 1.5rem;
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+
+ul.items li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+/* ── ASIDE / BARRA LATERAL ── */
+.aside-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.aside-card .institution-logo {
+  display: block;
+  max-width: 120px;
+  margin: 0 auto 1rem;
+  height: auto;
+}
+
+/* ── FOOTER ── */
+.footer {
+  border-top: 1px solid var(--border);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.8rem;
+  text-align: center;
+  color: var(--muted);
+  background: var(--surface);
+  padding: 2rem var(--gap);
+  margin-top: 4rem;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-logo {
+  height: 50px;
+  width: auto;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.footer-logo:hover {
+  opacity: 1;
+}
+
+.legal-mono {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* ── RESPONSIVIDAD ── */
+@media (max-width: 900px) {
+  :root {
+    --gap: 16px;
+    --radius: 12px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .hero-module {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+
+  .hero-badge-lateral {
+    display: flex;
+    flex-direction: row;
+    min-width: auto;
+    padding: 1rem;
+  }
+
+  .hero-badge-lateral img {
+    width: 60px;
+  }
+
+  .topic-pills {
+    overflow-x: auto;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    scrollbar-width: thin;
+  }
+
+  .wrapper {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  aside {
+    position: static;
+  }
+
+  .intro-grid,
+  .temas-grid,
+  .grid2,
+  .grid3 {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-container {
+    flex-direction: column;
+  }
+
+  .nav-list {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* ── ANIMACIONES ── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card,
+.pill,
+.nav-list a,
+.mindmap-item,
+.footer-logo {
+  transition: all 0.2s ease;
+}
+
+/* ── LEGIBILIDAD Y UTILIDADES ── */
+body,
+.card,
+.intro-section {
+  color: var(--text);
+}
+
+.hero-description,
+.section-label {
+  color: var(--muted);
+}
+
+.summary-box,
+.intro-highlight,
+.pill-accent,
+.pill-accent2,
+.decision {
+  color: white;
+}
+
+.summary-box p,
+.intro-highlight p {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.bg-surface {
+  background: var(--surface);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--gap);
+}
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-container">
+    <a href="#" class="nav-brand">
+      <img src="https://iemariacano.edu.co/wp-content/uploads/2020/02/escudo-1.gif" alt="Escudo I.E. María Cano">
+      <span>MAGO</span>
+    </a>
+    <ul class="nav-list">
+      <li><a href="#" class="active">Inicio</a></li>
+      <li><a href="#">Asistencia</a></li>
+      <li><a href="#">Movilidad</a></li>
+      <li><a href="#">Reportes</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero principal -->
+<div class="hero-module">
+  <div class="hero-content">
+    <span class="hero-badge-module">🔐 Control + trazabilidad</span>
+    <h1>Registro de asistencia<br>y control de movilidad</h1>
+    <p class="hero-description">Optimización administrativa y operativa mediante soluciones eficientes de control horario y geolocalización. Información confiable para la gestión del talento humano.</p>
+    <div class="topic-pills">
+      <span class="pill pill-accent">Tiempo real</span>
+      <span class="pill pill-accent2">Geocerca</span>
+      <span class="pill">Reportes automáticos</span>
+      <span class="pill">Cumplimiento normativo</span>
+    </div>
+  </div>
+  <div class="hero-badge-lateral">
+    <div class="big-number">+99.9%</div>
+    <div style="font-size: 0.9rem; margin-top: 0.5rem;">precisión operativa</div>
+    <div class="pill" style="margin-top: 1rem; background: var(--accent); color: white;">certificado ISO</div>
+  </div>
+</div>
+
+<!-- LAYOUT PRINCIPAL: main (sobre nosotros + objetivos) + aside (resumen ejecutivo) -->
+<div class="wrapper">
+  <main>
+    <!-- SOBRE NOSOTROS (intro-section) -->
+    <section class="intro-section">
+      <span class="section-label">✦ Quiénes somos</span>
+      <h2>Sobre nosotros</h2>
+      <p style="margin-bottom: 1rem;">Somos una organización comprometida con la optimización de los procesos administrativos y operativos mediante soluciones eficientes de <strong>registro de asistencia y control de movilidad</strong>. Nuestro propósito es brindar herramientas confiables que permitan a las empresas y entidades gestionar de manera precisa el tiempo laboral, la ubicación y el desplazamiento de su personal.</p>
+      <p>Trabajamos con enfoque en la innovación, la transparencia y la mejora continua, garantizando información en tiempo real que facilita la toma de decisiones y el cumplimiento de normativas laborales. Nuestro sistema está diseñado para adaptarse a diferentes sectores, ofreciendo control, seguridad y eficiencia en la gestión del talento humano.</p>
+      <div class="intro-grid">
+        <div class="intro-highlight">
+          <p>✅ <strong>Ventaja estratégica</strong><br>Reducción de hasta un 40% en desviaciones de jornada laboral mediante automatización inteligente.</p>
+        </div>
+        <div class="card" style="margin:0">
+          <span style="font-weight: 600;">🔒 Transparencia + trazabilidad</span>
+          <p style="margin-top: 0.5rem; font-size: 0.9rem;">Cada registro queda auditado y sincronizado con normativas laborales vigentes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- OBJETIVO GENERAL + ESPECÍFICOS -->
+    <section>
+      <span class="section-label">🎯 Misión del sistema</span>
+      <h2>Objetivo general</h2>
+      <div class="summary-box" style="margin-bottom: 2rem;">
+        <p style="font-size: 1.1rem; font-weight: 500;">Implementar un sistema eficiente de registro de asistencia y control de movilidad que permita mejorar la gestión del personal, optimizar recursos y garantizar el cumplimiento de horarios y desplazamientos laborales.</p>
+      </div>
+      
+      <h3>Objetivos específicos</h3>
+      <div class="temas-grid">
+        <div class="card icon-card">
+          <div class="icon">⏱️</div>
+          <h3>Control preciso</h3>
+          <p>Ingreso y salida del personal con validación biométrica y georreferencia.</p>
+        </div>
+        <div class="card icon-card">
+          <div class="icon">📍</div>
+          <h3>Monitoreo en tiempo real</h3>
+          <p>Movilidad y ubicación de trabajadores cuando aplique, con alertas inteligentes.</p>
+        </div>
+        <div class="card icon-card">
+          <div class="icon">📉</div>
+          <h3>Reducir errores</h3>
+          <p>Eliminación del registro manual y fuentes de fraude operativo.</p>
+        </div>
+        <div class="card icon-card">
+          <div class="icon">⚡</div>
+          <h3>Mejorar productividad</h3>
+          <p>Gestión eficiente del tiempo, integración con nómina y RRHH.</p>
+        </div>
+        <div class="card icon-card">
+          <div class="icon">📊</div>
+          <h3>Reportes confiables</h3>
+          <p>Dashboards ejecutivos y evidencia para toma de decisiones.</p>
+        </div>
+        <div class="card icon-card">
+          <div class="icon">⚖️</div>
+          <h3>Cumplimiento normativo</h3>
+          <p>Políticas internas, jornada laboral y marco legal actualizado.</p>
+        </div>
+        <div class="card icon-card">
+          <div class="icon">🛡️</div>
+          <h3>Seguridad + trazabilidad</h3>
+          <p>Trazabilidad completa en operaciones y desplazamientos del personal.</p>
+        </div>
+      </div>
+      <!-- plus: valores agregados -->
+      <div class="grid2" style="margin-top: 1.5rem;">
+        <div class="card">
+          <span class="pill pill-accent2" style="margin-bottom: 0.75rem; display: inline-block;">Beneficio clave</span>
+          <p>✅ Reducción del tiempo administrativo en un 70%</p>
+          <p>✅ Control biométrico y geolocalización opcional</p>
+        </div>
+        <div class="card">
+          <span class="pill pill-accent" style="margin-bottom: 0.75rem; display: inline-block;">Certificaciones</span>
+          <p>✔️ Cumple RGPD / LOPD<br>✔️ Auditoría lista para Sunafil / Ministerio de Trabajo</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ASIDE: resumen ejecutivo / normativa + llamada a la acción -->
+  <aside>
+    <div class="card" style="background: var(--surface2);">
+      <span class="section-label">📌 Cumplimiento normativo</span>
+      <h3 style="font-size: 1.3rem;">Políticas internas y legales</h3>
+      <ul class="items" style="margin: 1rem 0;">
+        <li>Registro obligatorio de jornada</li>
+        <li>Trazabilidad de desplazamientos</li>
+        <li>Control horario según estatuto de los trabajadores</li>
+        <li>Seguridad jurídica para la empresa</li>
+      </ul>
+      <div class="pill" style="background: var(--accent3); color: white; text-align: center; width: 100%;">Descargar directrices oficiales →</div>
+    </div>
+    <div class="card" style="margin-top: 1.5rem;">
+      <div class="big-number" style="font-size: 2rem;">+120</div>
+      <p>empresas confían en nuestro sistema de control de movilidad y asistencia.</p>
+      <hr style="margin: 1rem 0; border-color: var(--border);">
+      <p class="legal-mono" style="font-size: 0.7rem;">Información en tiempo real · Dashboards personalizables</p>
+    </div>
+  </aside>
+</div>
+
+<!-- PIE DE PÁGINA con texto oficial extenso -->
+<footer class="footer">
+  <div class="container">
+    <p style="margin-bottom: 1rem; font-weight: 500;"> MAGO · Movilidad, Asistencia y Gestión Operativa </p>
+    <div class="legal-mono" style="max-width: 800px; margin: 0 auto;">
+
+    </div>
+    <p style="margin-top: 1.5rem;">© 2026 I.E. María Cano. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+</body>
+</html>

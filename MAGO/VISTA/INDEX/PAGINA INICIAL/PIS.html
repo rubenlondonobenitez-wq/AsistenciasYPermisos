@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAGO · Movilidad, Asistencia y Gestión Operativa</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="PIS.css">
+    
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+                <div class="brand-container">
+                    <img src="https://admin.iemariacano.edu.co/utilidades/escudo.gif" 
+                         alt="Escudo I.E. María Cano" 
+                         class="institutional-logo">
+                    
+                    <div style="display: flex; flex-direction: column; margin-left: 12px;">
+                        <span class="brand-text">I.E. MARÍA CANO</span>
+                        <span style="font-family: 'DM Mono'; font-size: 0.7rem; color: var(--accent); font-weight: 500;">MAGO · PLATAFORMA</span>
+                    </div>
+                </div>
+            </a>
+            
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="REGISTRO DE ASISTENCIA/REG.html">REGISTRO</a></li>
+                    <li><a href="PANEL DE CONTROL/PANEL.html">CONTROL</a></li>
+                    <li><a href="REPORTES/REP.html">REPORTES</a></li>
+                    <li><a href="PERMISOS/PAUTO.html">PERMISOS</a></li>
+                    <li><a href="/MAGO/VISTA/INDEX/SALIR/SALIR.HTML">SALIR</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero fade-up">
+        <div class="hero-content">
+            <span class="badge">📋 MAGO · Movilidad, Asistencia y Gestión Operativa</span>
+            <h1>Control de Movilidad<br>y Registro de Asistencia</h1>
+            <p>Panel principal para nuestros directivos y docentes enfocado en la gestión de asistencia, seguimiento operativo y control de permisos estudiantiles.</p>
+            
+            <div class="hero-actions">
+                <a href="REGISTRO DE ASISTENCIA/REG.html" class="btn btn-primary">Registrar Asistencia</a>
+                <a href="PERMISOS/PAUTO.html" class="btn btn-outline">Gestionar Permisos</a>
+            </div>
+        </div>
+    </section>
+
+    <main class="wrapper">
+        <div class="main-content">
+            
+            <section class="intro-section fade-up">
+                <span class="section-label">// Sistema Central MAGO</span>
+                <div class="intro-grid">
+                    <div class="intro-text">
+                        <h2>Bienvenido al Sistema de Gestión de Movilidad y Asistencia</h2>
+                        <p>MAGO optimiza el registro en tiempo real de los estudiantes de la I.E. María Cano, facilitando el control de ingreso, salidas y consolidación de reportes institucional de forma segura e inmediata.</p>
+                        <a href="PANEL DE CONTROL/PANEL.html" class="btn btn-secondary btn-small">Ir al Panel General →</a>
+                    </div>
+                    
+                    <div class="intro-highlight">
+                        <div class="code-block">
+                            <span class="code-line">> Sistema MAGO: Activo</span>
+                            <span class="code-line">> Autenticación segura por roles</span>
+                            <span class="code-line">> Estado del servidor: Normal</span>
+                        </div>
+                        <div class="summary-box">
+                            <h4>📊 Resumen Operativo</h4>
+                            <div class="summary-stats">
+                                <div class="stat">
+                                    <span class="stat-value">2XXX</span>
+                                    <span class="stat-label">Estudiantes activos</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">XX%</span>
+                                    <span class="stat-label">Asistencia promedio</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="temas-section fade-up">
+                <span class="section-label">// Módulos del Sistema</span>
+                <div class="temas-grid">
+                    <article class="card icon-card">
+                        <div>
+                            <div class="card-icon">🚪</div>
+                            <h3>Control de Acceso</h3>
+                            <p>Registro de entrada/salida y validación institucional.</p>
+                        </div>
+                        <a href="PANEL DE CONTROL/PANEL.html" class="card-link">Gestionar →</a>
+                    </article>
+                    
+                    <article class="card icon-card">
+                        <div>
+                            <div class="card-icon">📅</div>
+                            <h3>Asistencia a Clases</h3>
+                            <p>Registro diario por grupo y seguimiento académico.</p>
+                        </div>
+                        <a href="REGISTRO DE ASISTENCIA/REG.html" class="card-link">Consultar →</a>
+                    </article>
+                    
+                    <article class="card icon-card">
+                        <div>
+                            <div class="card-icon">📋</div>
+                            <h3>Permisos Escolares</h3>
+                            <p>Seguimiento en tiempo real e historial de salidas.</p>
+                        </div>
+                        <a href="PERMISOS/PAUTO.html" class="card-link">Ver permisos →</a>
+                    </article>
+                </div>
+            </section>
+
+            <section class="lmc-section fade-up">
+                <div class="recuadro-lmc-enhanced">
+                    <div class="lmc-header">
+                        <span class="lmc-badge">MAGO</span>
+                        <h3>Gestión de Permisos y Salidas Especiales</h3>
+                    </div>
+                    <p class="lmc-description">Autorice y consulte los permisos temporales o salidas anticipadas respaldadas por los acudientes. El sistema registra la hora exacta y el directivo responsable.</p>
+                    <div class="lmc-actions">
+                        <a href="PERMISOS/PAUTO.html" class="btn btn-primary btn-small">Solicitar / Autorizar Permiso</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <aside class="sidebar">
+            <div class="aside-card">
+                <div class="aside-card__header">
+                    <h3>Información Relevante</h3>
+                </div>
+                <div class="aside-card__content">
+                    <ul class="aside-list">
+                        <li>
+                            <strong>📄 REPORTES</strong>
+                            <span>Asistencia consolidada por grado</span>
+                        </li>
+                        <li>
+                            <strong>ℹ️ AVISOS</strong>
+                            <span>Calendario Académico 2026</span>
+                        </li>
+                        <li>
+                            <strong>🌐 ACCESOS</strong>
+                            <span>Portal para acudientes y docentes</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="recuadro-img-enhanced">
+                <div class="img-placeholder">
+                    <img src="https://iemariacano.edu.co/wp-content/uploads/2020/02/Escudo.png" 
+                         alt="Escudo I.E. María Cano" 
+                         style="max-width: 120px; height: auto;">
+                    <p>I.E. María Cano</p>
+                    <small>Respeto · Progreso · Autonomía</small>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>MAGO · Movilidad, Asistencia y Gestión Operativa</h4>
+                <p>© 2026 I.E. María Cano. Todos los derechos reservados.</p>
+            </div>
+            <div class="footer-section">
+                <p>📧 contacto@iemariacano.edu.co · 📞 +57 321 821 9948</p>
+                <p class="footer-small">Sistema desarrollado por estudiantes de Media Técnica</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="PIS.js"></script>
+</body>
+</html>

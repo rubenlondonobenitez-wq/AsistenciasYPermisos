@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Reportes Estudiantiles · MAGO</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="REP.css">
+    <style>
+/* ═══════════════ VARIABLES Y CONFIGURACIÓN BASE ═══════════════ */
+:root {
+    --bg: #f4f6fa;
+    --surface: #ffffff;
+    --surface2: #f8fafc;
+    --border: rgba(226, 232, 240, 0.8);
+    
+    --text: #1e293b;
+    --muted: #64748b;
+
+    /* Colores y Gradientes "Vivos" */
+    --accent: #e11d48;
+    --accent-gradient: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
+    
+    --success: #10b981;
+    --success-bg: rgba(16, 185, 129, 0.12);
+    --warning: #f59e0b;
+    --warning-bg: rgba(245, 158, 11, 0.12);
+    --danger: #ef4444;
+    --danger-bg: rgba(239, 68, 68, 0.12);
+    --info: #3b82f6;
+    --info-bg: rgba(59, 130, 246, 0.12);
+
+    --radius: 18px;
+    --gap: 24px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    background-image: radial-gradient(circle at 10% 20%, rgba(225, 29, 72, 0.03) 0%, transparent 20%),
+                      radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.03) 0%, transparent 20%),
+                      url('https://iemariacano.edu.co/wp-content/uploads/2020/02/fondo.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(248, 250, 252, 0.92);
+    backdrop-filter: blur(4px);
+    z-index: -1;
+}
+
+/* ═══════════════ TIPOGRAFÍA Y FUENTES ═══════════════ */
+h1, h2, h3, h4 {
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--text);
+}
+
+code, pre, .mono, .section-label, .pill, th, .stat-info p, .date-time, .brand-sub {
+    font-family: 'DM Mono', monospace;
+}
+
+.container {
+    max-width: 1280px;
+    width: 100%;
+    margin: 1.5rem auto;
+    padding: 0 var(--gap);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    flex: 1;
+}
+
+/* ═══════════════ NAVBAR MEJORADO ═══════════════ */
+.navbar {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.navbar-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0.75rem var(--gap);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.brand-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.institutional-logo {
+    height: 44px;
+    width: auto;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    transition: var(--transition);
+}
+
+.brand-container:hover .institutional-logo {
+    transform: scale(1.05) rotate(-3deg);
+}
+
+.brand-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem;
+    color: var(--text);
+    letter-spacing: 0.5px;
+}
+
+.brand-sub {
+    font-size: 0.7rem;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.nav-menu ul {
+    display: flex;
+    list-style: none;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.nav-menu a:hover, .nav-menu a.active {
+    color: var(--accent);
+    background: rgba(225, 29, 72, 0.08);
+}
+
+.nav-menu a.btn-logout {
+    color: var(--danger);
+    background: var(--danger-bg);
+}
+
+.nav-menu a.btn-logout:hover {
+    background: var(--danger);
+    color: white;
+}
+
+/* ═══════════════ HEADER DE PÁGINA ═══════════════ */
+.header {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.75rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    color: var(--accent);
+}
+
+.logo-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    background: var(--accent-gradient);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+}
+
+.date-time {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.date-time i {
+    color: var(--accent);
+}
+
+/* ═══════════════ TARJETAS DE ESTADÍSTICAS ═══════════════ */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.25rem;
+}
+
+.stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.stat-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: transparent;
+    transition: var(--transition);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.stat-card.card-total:hover::after { background: var(--info); }
+.stat-card.card-ontime:hover::after { background: var(--success); }
+.stat-card.card-late:hover::after { background: var(--warning); }
+.stat-card.card-absent:hover::after { background: var(--danger); }
+
+.stat-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    flex-shrink: 0;
+}
+
+.card-total .stat-icon { background: var(--info-bg); }
+.card-ontime .stat-icon { background: var(--success-bg); }
+.card-late .stat-icon { background: var(--warning-bg); }
+.card-absent .stat-icon { background: var(--danger-bg); }
+
+.stat-info h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-info p {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+/* ═══════════════ CONTENIDO PRINCIPAL Y TABLA ═══════════════ */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 310px;
+    gap: var(--gap);
+    align-items: start;
+}
+
+.table-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+.table-header h2 {
+    font-size: 1.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.92rem;
+}
+
+th {
+    background-color: var(--surface2);
+    color: var(--muted);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+}
+
+td {
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: middle;
+}
+
+tbody tr {
+    transition: var(--transition);
+}
+
+tbody tr:hover {
+    background-color: rgba(248, 250, 252, 0.8);
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Insignias de Estado con Emoticonos */
+.badge-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 30px;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.badge-present { background: var(--success-bg); color: #047857; border: 1px solid rgba(16, 185, 129, 0.3); }
+.badge-late { background: var(--warning-bg); color: #b45309; border: 1px solid rgba(245, 158, 11, 0.3); }
+.badge-absent { background: var(--danger-bg); color: #b91c1c; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+/* ═══════════════ PANEL DE ACCIONES Y FILTROS ═══════════════ */
+.actions-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.actions-panel h3, .filter-section h4 {
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.action-btn {
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 0.88rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.6rem;
+    transition: var(--transition);
+}
+
+.action-btn:hover {
+    background: var(--text);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.action-btn.warning {
+    color: var(--accent);
+    background: rgba(225, 29, 72, 0.06);
+    border-color: rgba(225, 29, 72, 0.2);
+}
+
+.action-btn.warning:hover {
+    background: var(--accent-gradient);
+    color: white;
+}
+
+.filter-section {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+select, input[type="time"], input[type="text"], textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text);
+    outline: none;
+    transition: var(--transition);
+}
+
+select:focus, input:focus, textarea:focus {
+    border-color: var(--accent);
+    background: var(--surface);
+    box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.12);
+}
+
+/* ═══════════════ BOTONES Y FORMULARIOS ═══════════════ */
+.btn-save {
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 30px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(225, 29, 72, 0.25);
+}
+
+.btn-save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(225, 29, 72, 0.35);
+}
+
+.btn-cancel {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 0.75rem 1.5rem;
+    border-radius: 30px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-cancel:hover {
+    background: var(--surface2);
+    color: var(--text);
+}
+
+/* ═══════════════ MODAL ═══════════════ */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--surface);
+    width: 100%;
+    max-width: 520px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    animation: modalIn 0.25s ease-out;
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(0.95) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--surface2);
+}
+
+.modal-header h2 {
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.close {
+    font-size: 1.4rem;
+    color: var(--muted);
+    cursor: pointer;
+    transition: var(--transition);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.close:hover {
+    color: var(--accent);
+    background: rgba(225, 29, 72, 0.1);
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.1rem;
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+}
+
+/* ═══════════════ FOOTER ═══════════════ */
+footer {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    padding: 1.75rem 0;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--gap);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+}
+
+.footer-section h4 {
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+}
+
+.footer-section p {
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+.footer-small {
+    font-size: 0.78rem !important;
+    color: var(--muted);
+    opacity: 0.8;
+}
+
+/* ═══════════════ RESPONSIVIDAD ═══════════════ */
+@media (max-width: 900px) {
+    :root { --gap: 16px; }
+
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .header-content, .navbar-container, .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-menu ul {
+        flex-wrap: wrap;
+    }
+
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <div class="brand-container">
+                <img src="https://admin.iemariacano.edu.co/utilidades/escudo.gif" 
+                     alt="Escudo I.E. María Cano" 
+                     class="institutional-logo">
+                <div style="display: flex; flex-direction: column;">
+                    <span class="brand-text">I.E. MARÍA CANO</span>
+                    <span class="brand-sub">MAGO · PLATAFORMA</span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="/MAGO/VISTA/INDEX/PAGINA INICIAL/PIS.html">🏠 Inicio</a></li>
+                    <li><a href="REGISTRO DE ASISTENCIA/REG.html" class="active">📝 Registro</a></li>
+                    <li><a href="PANEL DE CONTROL/PANEL.html">⚙️ Control</a></li>
+                    <li><a href="PERMISOS/PAUTO.html">🔑 Permisos</a></li>
+                    <li><a href="/MAGO/VISTA/INDEX/SALIR/SALIR.HTML" class="btn-logout">🚪 Salir</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h1>Sistema de Reportes Estudiantiles</h1>
+                </div>
+                <div class="date-time">
+                    <span>📅 <span id="currentDate">--/--/----</span></span>
+                    <span>•</span>
+                    <span>⏰ <span id="currentTime">--:--</span></span>
+                </div>
+            </div>
+        </header>
+
+        <div class="stats-container">
+            <div class="stat-card card-total">
+                <div class="stat-icon">👥</div>
+                <div class="stat-info">
+                    <h3>Total Estudiantes</h3>
+                    <p id="totalStudents">0</p>
+                </div>
+            </div>
+            <div class="stat-card card-ontime">
+                <div class="stat-icon">🟢</div>
+                <div class="stat-info">
+                    <h3>A Tiempo</h3>
+                    <p id="onTime">0</p>
+                </div>
+            </div>
+            <div class="stat-card card-late">
+                <div class="stat-icon">🟡</div>
+                <div class="stat-info">
+                    <h3>Llegada Tarde</h3>
+                    <p id="late">0</p>
+                </div>
+            </div>
+            <div class="stat-card card-absent">
+                <div class="stat-icon">🔴</div>
+                <div class="stat-info">
+                    <h3>Ausentes</h3>
+                    <p id="absent">0</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="table-container">
+                <div class="table-header">
+                    <h2>📋 Reportes Diarios</h2>
+                    <button class="btn-save" onclick="saveAllReports()">
+                        💾 Guardar Todos
+                    </button>
+                </div>
+                
+                <div class="table-wrapper">
+                    <table id="studentTable">
+                        <thead>
+                            <tr>
+                                <th>👤 Estudiante</th>
+                                <th>⏰ Hora Llegada</th>
+                                <th>📊 Asistencia</th>
+                                <th>📌 Novedades</th>
+                                <th>⚠️ Anomalías</th>
+                                <th>🏷️ Estado</th>
+                                <th>⚙️ Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr>
+                                <td><strong>Juan Pérez</strong></td>
+                                <td>06:15 AM</td>
+                                <td><span class="badge-status badge-present">🟢 Presente</span></td>
+                                <td>Sin novedades</td>
+                                <td>Ninguna</td>
+                                <td><span class="badge-status badge-present">✅ A tiempo</span></td>
+                                <td><button class="action-btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">✏️ Editar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="actions-panel">
+                <h3>⚡ Acciones Rápidas</h3>
+                <button class="action-btn" onclick="markAllOnTime()">
+                    🟢 Marcar Todos a Tiempo
+                </button>
+                <button class="action-btn" onclick="markAllLate()">
+                    🟡 Marcar Todos Tarde
+                </button>
+                <button class="action-btn warning" onclick="clearAllReports()">
+                    🔄 Limpiar Reportes
+                </button>
+                
+                <div class="filter-section">
+                    <h4>🔍 Filtrar por Estado</h4>
+                    <select id="statusFilter" onchange="filterTable()">
+                        <option value="all">🌐 Todos los Estados</option>
+                        <option value="present">🟢 Presentes / A Tiempo</option>
+                        <option value="late">🟡 Llegada Tarde</option>
+                        <option value="absent">🔴 Ausentes</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>✏️ Editar Reporte Estudiantil</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <input type="hidden" id="studentId">
+                    
+                    <div class="form-group">
+                        <label>👤 Estudiante:</label>
+                        <input type="text" id="studentName" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>⏰ Hora de Llegada:</label>
+                        <input type="time" id="arrivalTime" value="06:10">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>📊 Estado de Asistencia:</label>
+                        <select id="attendance" onchange="updateTimeBasedOnAttendance()">
+                            <option value="present">🟢 Presente (A tiempo)</option>
+                            <option value="late">🟡 Tarde (Retardo)</option>
+                            <option value="absent">🔴 Ausente (Inasistencia)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>📌 Novedades:</label>
+                        <textarea id="news" rows="3" placeholder="Ingrese novedades u observaciones..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>⚠️ Reporte de Anomalías:</label>
+                        <textarea id="anomalies" rows="3" placeholder="Ingrese anomalías observadas..."></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" onclick="closeModal()">✖️ Cancelar</button>
+                        <button type="button" class="btn-save" onclick="saveReport()">💾 Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>✨ MAGO · Movilidad, Asistencia y Gestión Operativa</h4>
+                <p>© 2026 I.E. María Cano. Todos los derechos reservados.</p>
+            </div>
+            <div class="footer-section" style="text-align: right;">
+                <p>📧 contacto@iemariacano.edu.co · 📞 +57 321 821 9948</p>
+                <p class="footer-small">💻 Sistema desarrollado por estudiantes de Media Técnica</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="REP.js"></script>
+</body>
+</html>

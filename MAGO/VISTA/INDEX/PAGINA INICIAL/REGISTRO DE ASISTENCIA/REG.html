@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAGO · Registro de Asistencia</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="REG.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="nav-brand">
+                <img 
+                    src="https://admin.iemariacano.edu.co/utilidades/escudo.gif" 
+                    alt="Escudo I.E. María Cano" 
+                    class="brand-logo"
+                    loading="eager"
+                >
+                <span class="brand-text">MAGO</span>
+            </a>
+            <ul class="nav-list">
+                <li><a href="/MAGO/VISTA/INDEX/PAGINA INICIAL/PIS.html" class="active">INICIO</a></li> 
+                <li><a href="/MAGO/VISTA/INDEX/PAGINA INICIAL/PANEL DE CONTROL/PANEL.html">CONTROL</a></li>
+                <li><a href="/MAGO/VISTA/INDEX/PAGINA INICIAL/REPORTES/REP.html">REPORTES</a></li>
+                <li><a href="/MAGO/VISTA/INDEX/PAGINA INICIAL/PERMISOS/PAUTO.html">PERMISOS</a></li>
+                <li><a href="/MAGO/VISTA/INDEX/SALIR/SALIR.HTML">SALIR</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="hero-module-simple">
+        <h1>Registro de <span class="text-accent">Asistencia</span></h1>
+    </div>
+
+    <div class="wrapper">
+        <main>
+            <div class="form-card">
+                <span class="section-label">📝 Nuevo registro de asistencia</span>
+
+                <div class="grid-2-cols">
+                    <div>
+                        <label for="fechaClase" style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 0.3rem;">📅 Fecha de la Clase</label>
+                        <input type="date" id="fechaClase">
+                    </div>
+                    <div>
+                        <label for="sesionClase" style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 0.3rem;">⏰ Sesión / Bloque Horario</label>
+                        <select id="sesionClase">
+                            <option value="Hora 1 (06:30 - 07:20)"> Hora 1 (06:30 - 07:20)</option>
+                            <option value="Hora 2 (07:20 - 08:20)"> Hora 2 (07:20 - 08:20)</option>
+                            <option value="Hora 3 (08:20 - 09:10)"> Hora 3 (08:20 - 09:10)</option>
+                            <option value="Hora 4 (09:40 - 10:30)"> Hora 4 (09:40 - 10:30)</option>
+                            <option value="Hora 5 (10:30 - 11:20)"> Hora 5 (10:30 - 11:20)</option>
+                            <option value="Hora 6 (11:20 - 12:10)"> Hora 6 (11:20 - 12:10)</option>
+                            <option value="Media Tecnica (01:00 - 05:00)"> Media Tecnica (01:00 - 05:00)</option>
+                            <option value="Sesión Especial">Sesión Especial / Extracurricular</option>
+                        </select>
+                    </div>
+                </div>
+
+                <select id="cargo" onchange="actualizarSegundoNivel()">
+                    <option value="">🔽 Seleccionar cargo / rol</option>
+                    <option value="secretario">📋 Secretario (Acceso Total)</option>
+                    <option value="director">👨‍🏫 Director de Grupo</option>
+                    <option value="profesor">👩‍🏫 Profesor</option>
+                    <option value="profesor">👩‍🏫 Docente de Media Técnica Institución</option>
+                     <option value="profesor">👩‍🏫 Docente de Media Técnica Aliado</option>
+                </select>
+
+                <select id="segundoNivel" onchange="manejarSegundoNivel()" disabled>
+                    <option value="">🔽 Primero selecciona un cargo</option>
+                </select>
+
+                <select id="grupo" onchange="cargarEstudiantes()" disabled style="display: none;">
+                    <option value="">🔽 Seleccionar grupo</option>
+                </select>
+
+                <div id="studentsSection" style="display: none;">
+                    <div class="group-info">
+                        <h3>
+                            📚 Grupo: <span id="currentGroup" style="color: var(--accent);"></span>
+                            <span style="margin-left: auto;">
+                                👤 Director: <span id="currentDirector" style="color: var(--accent);"></span>
+                            </span>
+                            <span style="margin-left: 1rem;">
+                                👥 <span class="student-count" id="studentCount">0</span> estudiantes
+                            </span>
+                        </h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="students-table-container">
+                        <table class="students-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Estudiante</th>
+                                    <th>Estado de Asistencia</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentsTableBody">
+                                </tbody>
+                        </table>
+                    </div>
+
+                    <div class="signature-area">
+                        <span class="section-label">✍️ Firma del docente</span>
+
+                        <div class="signature-upload">
+                            <input type="file" id="firmaUpload" accept="image/*" style="display: none;" onchange="cargarFirmaDigital(event)">
+                            <button type="button" class="upload-btn" onclick="document.getElementById('firmaUpload').click()">
+                                📁 Cargar firma digital
+                            </button>
+                            <span style="color: var(--text-secondary); font-size: 0.85rem;">o dibuja abajo</span>
+                        </div>
+
+                        <div class="signature-pad" id="signaturePad" onclick="abrirFirmaVirtual()">
+                            <span class="signature-placeholder" id="signaturePlaceholder">🖊️ Toca para dibujar firma</span>
+                            <img id="signaturePreview" class="signature-preview" alt="Vista previa de firma">
+                        </div>
+
+                        <button type="button" class="btn-clear" id="btnClearFirma" onclick="limpiarFirma()" style="display: none; margin-top: 0.5rem;">
+                            🗑️ Limpiar firma
+                        </button>
+                        <input type="hidden" id="firmaData" value="">
+                    </div>
+
+                    <button class="guardar-btn" onclick="guardarAsistencia()" id="btnGuardar">
+                        💾 Guardar registro de asistencia
+                    </button>
+
+                    <div id="mensaje" class="mensaje"></div>
+                </div>
+            </div>
+
+            <div class="intro-section">
+                <span class="section-label">📊 Resumen del día</span>
+                <div class="intro-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalHoy">0</div>
+                        <div class="stat-label">Total registros</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="presentesHoy">0</div>
+                        <div class="stat-label">✅ Asistieron</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="ausentesHoy">0</div>
+                        <div class="stat-label">❌ Faltaron</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="tardanzasHoy">0</div>
+                        <div class="stat-label">⏰ Llegada tarde</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <aside>
+            <div class="summary-box">
+                <h3>📌 Instrucciones</h3>
+                <ul class="items" style="margin-top: 0.5rem;">
+                    <li>1️⃣ Indicar la Fecha y Sesión correspondiente</li>
+                    <li>2️⃣ Seleccionar tu cargo (Secretario, Director o Profesor)</li>
+                    <li>3️⃣ Seleccionar el grupo a reportar</li>
+                    <li>4️⃣ Registrar la asistencia del alumnado</li>
+                    <li>5️⃣ Firmar y guardar el reporte</li>
+                </ul>
+            </div>
+
+            <div class="summary-box">
+                <h3>📊 Datos del Sistema</h3>
+                <ul class="items" style="margin-top: 0.5rem;">
+                    <li>📚 24 Grupos (6° a 11°)</li>
+                    <li>👨‍🏫 24 Directores de grupo</li>
+                    <li>👥 ~720 Estudiantes totales</li>
+                    <li>👩‍🏫 3 Roles de acceso</li>
+                    <li>🔐 Permisos jerárquicos</li>
+                </ul>
+            </div>
+
+            <div class="code-block">
+                <div class="code-header">❌ Estudiantes Ausentes (Hoy)</div>
+                <div id="ausentesList" class="ausentes-list">
+                    <p class="muted">No hay ausentes registrados hoy</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <footer class="footer">
+        <p>MAGO · Movilidad, Asistencia y Gestión Operativa</p>
+        <p>24 grupos · 24 directores · 720 estudiantes · Firma digital</p>
+    </footer>
+
+    <div id="firmaModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="cerrarFirmaModal()">&times;</span>
+            <h3>✍️ Dibuja tu firma</h3>
+            <canvas id="firmaCanvas" class="firma-canvas"></canvas>
+            <div class="modal-buttons">
+                <button onclick="limpiarFirmaCanvas()" style="background: var(--surface2); color: var(--text);">🗑️ Limpiar</button>
+                <button onclick="guardarFirmaModal()" style="background: var(--accent); color: white;">✅ Guardar firma</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="REG.js"></script>
+</body>
+</html>

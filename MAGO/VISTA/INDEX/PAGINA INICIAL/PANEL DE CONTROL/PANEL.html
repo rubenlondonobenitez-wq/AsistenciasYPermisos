@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control - Revisión de Asistencias | IE María Cano</title>
+    <!-- Fuentes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Iconos Phosphor / FontAwesome (Opcional para mejorar experiencia) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="PANEL.css">
+</head>
+<body>
+
+    <!-- NAVEGACIÓN SUPERIOR -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="nav-brand">
+                <img src="https://admin.iemariacano.edu.co/utilidades/escudo.gif" alt="Escudo IE María Cano" class="brand-logo">
+                <span class="brand-text">IE María Cano</span>
+            </a>
+            <ul class="nav-list">
+                <li><a href="/MAGO/VISTA/INDEX/PAGINA INICIAL/PIS.html" class="active">INICIO</a></li> 
+                <li><a href="/MAGO/VISTA/INDEX/PAGINA INICIAL/REGISTRO DE ASISTENCIA/REG.html">REGISTRO</a></li>
+                <li><a href="/MAGO/VISTA/INDEX/PAGINA INICIAL/REPORTES/REP.html">REPORTES</a></li>
+                <li><a href="/MAGO/VISTA/INDEX/PAGINA INICIAL/PERMISOS/PAUTO.html">PERMISOS</a></li>
+                <li><a href="/MAGO/VISTA/INDEX/SALIR/SALIR.HTML">SALIR</a></li>
+              </ul>
+        </div>
+    </nav>
+
+    <!-- HERO BANNER SUAVE -->
+    <header class="hero-module-simple">
+        <h1>Panel de Control de <span class="text-accent">Asistencias</span></h1>
+        <p>Modulo de auditoría, revisión de registros diarios y generación de reportes institucionales.</p>
+    </header>
+
+    <main class="wrapper">
+        
+        <!-- SECCIÓN PRINCIPAL (IZQUIERDA) -->
+        <section class="main-content">
+            
+            <!-- TARJETAS DE MÉTRICAS RÁPIDAS (KPIs) -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="ph ph-users-three"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number">1,248</span>
+                        <span class="stat-label">Total Registros Hoy</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon success"><i class="ph ph-check-circle"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number text-success">94.2%</span>
+                        <span class="stat-label">Asistencia General</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon danger"><i class="ph ph-x-circle"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number text-danger">42</span>
+                        <span class="stat-label">Inasistencias Hoy</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon warning"><i class="ph ph-warning-circle"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number text-warning">15</span>
+                        <span class="stat-label">Excusas Pendientes</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FILTROS DE BÚSQUEDA Y CONTROL -->
+            <div class="form-card">
+                <span class="section-label">Filtros de Búsqueda y Auditoría</span>
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label for="filter-date">Fecha</label>
+                        <input type="date" id="filter-date" value="2026-09-08">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="filter-grupo">Grado / Grupo</label>
+                        <select id="filter-grupo">
+                            <option value="">Todos los grupos</option>
+                            <option value="10-1">Grado 10°1</option>
+                            <option value="10-2">Grado 10°2</option>
+                            <option value="11-1">Grado 11°1</option>
+                            <option value="11-2">Grado 11°2</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="filter-estado">Estado</label>
+                        <select id="filter-estado">
+                            <option value="">Todos los estados</option>
+                            <option value="presente">Presente</option>
+                            <option value="ausente">Ausente</option>
+                            <option value="tarde">Llegada Tarde</option>
+                            <option value="excusa">Con Excusa</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group search-group">
+                        <label for="search-input">Estudiante / Docente</label>
+                        <input type="text" id="search-input" placeholder="Buscar por nombre o documento...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABLA PRINCIPAL DE ASISTENCIAS REGISTRADAS -->
+            <div class="form-card no-padding">
+                <div class="card-header-table">
+                    <div>
+                        <h3>Registros de Asistencia</h3>
+                        <p class="subtitle">Mostrando los registros procesados según los filtros seleccionados</p>
+                    </div>
+                    <div class="table-actions">
+                        <button class="btn-secondary"><i class="ph ph-file-csv"></i> Exportar CSV</button>
+                        <button class="btn-primary"><i class="ph ph-file-pdf"></i> Generar Reporte PDF</button>
+                    </div>
+                </div>
+
+                <div class="students-table-container">
+                    <table class="students-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha / Hora</th>
+                                <th>Grupo</th>
+                                <th>Estudiante</th>
+                                <th>Docente Responsable</th>
+                                <th>Estado</th>
+                                <th>Observación / Excusa</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="font-mono">08/09/2026 - 07:15 AM</span></td>
+                                <td><span class="badge-group">10°1</span></td>
+                                <td><strong>Álvarez Gómez, Camila</strong></td>
+                                <td>Prof. Roberto Martínez</td>
+                                <td><span class="badge status-presente">Presente</span></td>
+                                <td><span class="text-muted">-</span></td>
+                                <td>
+                                    <button class="btn-icon" title="Ver Detalle"><i class="ph ph-eye"></i></button>
+                                    <button class="btn-icon" title="Editar Estado"><i class="ph ph-pencil-simple"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="font-mono">08/09/2026 - 07:15 AM</span></td>
+                                <td><span class="badge-group">10°1</span></td>
+                                <td><strong>Benítez Pérez, Santiago</strong></td>
+                                <td>Prof. Roberto Martínez</td>
+                                <td><span class="badge status-ausente">Ausente</span></td>
+                                <td><span class="text-muted">Sin justificar</span></td>
+                                <td>
+                                    <button class="btn-icon" title="Ver Detalle"><i class="ph ph-eye"></i></button>
+                                    <button class="btn-icon" title="Editar Estado"><i class="ph ph-pencil-simple"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="font-mono">08/09/2026 - 07:28 AM</span></td>
+                                <td><span class="badge-group">11°2</span></td>
+                                <td><strong>Castro Ríos, Mateo</strong></td>
+                                <td>Profa. María López</td>
+                                <td><span class="badge status-tarde">Llegada Tarde</span></td>
+                                <td>Ingreso 13 min tarde</td>
+                                <td>
+                                    <button class="btn-icon" title="Ver Detalle"><i class="ph ph-eye"></i></button>
+                                    <button class="btn-icon" title="Editar Estado"><i class="ph ph-pencil-simple"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="font-mono">08/09/2026 - 07:15 AM</span></td>
+                                <td><span class="badge-group">10°2</span></td>
+                                <td><strong>Delgado Morales, Lucía</strong></td>
+                                <td>Prof. Carlos Osorio</td>
+                                <td><span class="badge status-excusa">Excusa Pendiente</span></td>
+                                <td>Cita médica EPS Sanitas</td>
+                                <td>
+                                    <button class="btn-icon text-accent" title="Validar Excusa"><i class="ph ph-check-square"></i></button>
+                                    <button class="btn-icon" title="Editar Estado"><i class="ph ph-pencil-simple"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- PAGINACIÓN -->
+                <div class="pagination-container">
+                    <span class="pagination-info">Mostrando 1 a 4 de 42 registros</span>
+                    <div class="pagination-buttons">
+                        <button class="btn-page" disabled>Anterior</button>
+                        <button class="btn-page active">1</button>
+                        <button class="btn-page">2</button>
+                        <button class="btn-page">3</button>
+                        <button class="btn-page">Siguiente</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SIDEBAR DE RESUMEN Y NOTIFICACIONES (DERECHA) -->
+        <aside class="sidebar-content">
+            
+            <!-- ACCIONES RÁPIDAS -->
+            <div class="summary-box">
+                <h3>Acciones del Administrador</h3>
+                <div class="action-list">
+                    <button class="sidebar-btn primary">
+                        <i class="ph ph-file-arrow-down"></i> Reporte Mensual Consolidado
+                    </button>
+                    <button class="sidebar-btn secondary">
+                        <i class="ph ph-bell-ringing"></i> Notificar Novedades a Acudientes
+                    </button>
+                    <button class="sidebar-btn secondary">
+                        <i class="ph ph-cloud-arrow-up"></i> Sincronizar Registro de Clases
+                    </button>
+                </div>
+            </div>
+
+            <!-- MONITOR DE ALERTAS POR GRUPO -->
+            <div class="summary-box">
+                <h3>Resumen por Grados Hoy</h3>
+                <ul class="group-stats-list">
+                    <li>
+                        <div class="group-stat-header">
+                            <span>Grado 10°1</span>
+                            <span class="font-mono font-bold text-success">96%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 96%;"></div></div>
+                    </li>
+                    <li>
+                        <div class="group-stat-header">
+                            <span>Grado 10°2</span>
+                            <span class="font-mono font-bold text-warning">88%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill warning-fill" style="width: 88%;"></div></div>
+                    </li>
+                    <li>
+                        <div class="group-stat-header">
+                            <span>Grado 11°1</span>
+                            <span class="font-mono font-bold text-success">98%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 98%;"></div></div>
+                    </li>
+                    <li>
+                        <div class="group-stat-header">
+                            <span>Grado 11°2</span>
+                            <span class="font-mono font-bold text-danger">82%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill danger-fill" style="width: 82%;"></div></div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- AUDITORÍA DE REGISTROS -->
+            <div class="code-block">
+                <div class="code-header"><i class="ph ph-clock-counter-clock-wise"></i> Últimos Registros Guardados</div>
+                <ul class="audit-log">
+                    <li>
+                        <strong>Prof. Roberto Martínez</strong> envió lista de <em>10°1</em>
+                        <span class="time">Hace 12 min</span>
+                    </li>
+                    <li>
+                        <strong>Profa. María López</strong> envió lista de <em>11°2</em>
+                        <span class="time">Hace 25 min</span>
+                    </li>
+                    <li>
+                        <strong>Prof. Carlos Osorio</strong> envió lista de <em>10°2</em>
+                        <span class="time">Hace 40 min</span>
+                    </li>
+                </ul>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <footer class="footer">
+        <p>Plataforma Institucional IE María Cano &copy; 2026 - Módulo de Auditoría de Asistencias</p>
+    </footer>
+    <script src="PANEL.js"></script>
+    <script>
+        function cargarTabla() {
+    let datos = JSON.parse(localStorage.getItem("asistencia")) || [];
+    let tbody = document.querySelector("#tabla tbody");
+
+    tbody.innerHTML = "";
+
+    datos.forEach((r, index) => {
+        let fila = `
+        <tr>
+            <td>${r.estudiante}</td>
+            <td>${r.curso}</td>
+            <td>${r.estado}</td>
+            <td>${r.motivo}</td>
+            <td>${r.fecha}</td>
+            <td>${r.hora}</td>
+            <td>
+                <button onclick="enviarReporte(${index})">Enviar</button>
+            </td>
+        </tr>
+        `;
+
+        tbody.innerHTML += fila;
+    });
+}
+
+// REUTILIZA FUNCIÓN
+function enviarReporte(index) {
+    let datos = JSON.parse(localStorage.getItem("asistencia"));
+    let r = datos[index];
+
+    alert(
+        "📩 Reporte enviado al acudiente\n\n" +
+        "Estudiante: " + r.estudiante +
+        "\nCurso: " + r.curso +
+        "\nMotivo: " + r.motivo +
+        "\nFecha: " + r.fecha +
+        "\nHora: " + r.hora
+    );
+}
+    </script>
+</body>
+</html>

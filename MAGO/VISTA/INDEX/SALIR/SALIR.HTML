@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAGO · Cerrando Sesión</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="SALIR.CSS">
+</head>
+<body>
+
+    <main class="logout-card">
+        <div class="logo-container">
+            <img src="https://admin.iemariacano.edu.co/utilidades/escudo.gif" alt="Escudo I.E. María Cano" class="institutional-logo">
+            <span class="institution-name">INSTITUCIÓN EDUCATIVA MARÍA DE LOS ÁNGELES CANO MÁRQUEZ</span>
+        </div>
+
+        <h1 class="title">CERRANDO SESIÓN</h1>
+
+        <div class="message-box">
+            <p class="message" id="logoutMessage">Cerrando sesión. Gracias por usar nuestros servicios.</p>
+        </div>
+
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+
+        <p class="redirect-note">
+            Serás redirigido automáticamente al acceso principal.<br>
+        </p>
+    </main>
+
+    <script>
+        // Limpieza de credenciales o tokens del navegador
+        localStorage.removeItem('mago_active_role');
+        sessionStorage.clear();
+
+        // Redirección automática al inicio de sesión tras 3 segundos
+        setTimeout(() => {
+            window.location.href = '/MAGO/VISTA/INDEX/INDEX.html';
+        }, 3000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión · MAGO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="INDEX.css">
+
+</head>
+<body>
+    <!-- ── NAV STICKY ── -->
+    <nav class="nav"> 
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBxURqWkW0vfGfBTybAWevij144dJOLb6qsg&s"
+                alt="Logo IED María Cano"
+                class="nav-logo-img"
+                >
+                <span class="nav-title">MAGO</span>
+            </div>
+            <ul class="nav-list">
+                <li><a href="#" class="active">Iniciar Sesión</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ── LOGIN SECTION ── -->
+    <section class="login-section">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>Accede a tu <span>cuenta</span></h1>
+                <p>Elige uno de los tres métodos de autenticación disponibles</p>
+            </div>
+
+            <!-- Mensajes de estado -->
+            <div id="errorMessage" class="error-message"></div>
+            <div id="successMessage" class="success-message"></div>
+
+            <!-- Panel 1: Inicio de sesión clásico -->
+            <div class="auth-panel active" id="panel-classic" role="tabpanel">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="documentId">Documento de Identidad</label>
+                        <input
+                            type="text"
+                            id="documentId"
+                            name="documentId"
+                            placeholder="Ej: 1234567890"
+                            autocomplete="username"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rol">Rol</label>
+                        <select 
+                            id="rol" 
+                            name="rol" 
+                            required 
+                            style="width: 100%; padding: 0.875rem 1rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: 'Outfit', sans-serif; font-size: 1rem; background: #ffffff; color: var(--text); cursor: pointer;"
+                        >
+                            <option value="" disabled selected>Selecciona tu rol</option>
+                            <option value="acudiente">Acudiente / Padre de Familia</option>
+                            <option value="estudiante">Estudiante</option>
+                            <option value="superior">Superior</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Ingresa tu contraseña"
+                            autocomplete="current-password"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox">
+                            <input type="checkbox" id="rememberMe">
+                            <span>Recordar mi sesión</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-login">Iniciar Sesión</button>
+                </form>
+            </div>
+
+            <!-- Enlace de registro -->
+            <div class="register-link">
+                ¿No tienes una cuenta institucional? <a href="#">Solicita acceso aquí</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer class="footer">
+        <img
+            src="https://iemariacano.edu.co/wp-content/uploads/2020/02/Escudo.png"
+            alt="Escudo"
+            class="footer-escudo"
+        >
+        <p>&copy; 2026 <span class="text-accent">MAGO</span></p>
+        <p style="margin-top: 0.5rem; font-size: 0.7rem;">Registro de Asistencia y Control de Movilidad </p>
+    </footer>
+
+    <!-- ── LÓGICA DE REDIRECCIÓN Y JS ── -->
+    <script src="INDEX.js"></script>
+</body>
+</html>

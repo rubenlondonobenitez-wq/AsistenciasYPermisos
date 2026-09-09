@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bandeja de Permisos — Gestión Superior</title>
+
+  <!-- Tipografías Oficiales del Sistema MAGO -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;700&family=DM+Serif+Display&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ══════════════════════════════════════════════════════════════════
+       SISTEMA MAGO — PALETA Y VARIABLES GLOBALES
+       ══════════════════════════════════════════════════════════════════ */
+    :root {
+        --bg: #f8f9fc;
+        --surface: #ffffff;
+        --surface2: #f0f2f8;
+        --dark-bg: #0b0b0b;
+        --dark-surface: #1a1a1a;
+        --border: rgba(0, 0, 0, 0.08);
+        --text: #111111;
+        --muted: #5b677b;
+        
+        /* Acentos */
+        --accent: #c62828;
+        --accent-hover: #a51e1e;
+        --success: #1b5e20;
+        --success-bg: rgba(27, 94, 32, 0.12);
+        --danger: #c62828;
+        --danger-bg: rgba(198, 40, 40, 0.12);
+        --warning: #b76e00;
+        --warning-bg: rgba(183, 110, 0, 0.12);
+        --info: #1565c0;
+        --purple: #6a1b9a;
+        
+        --radius: 16px;
+        --gap: 24px;
+        --shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        --shadow-hover: 0 14px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: var(--bg);
+        color: var(--text);
+        font-family: 'Outfit', sans-serif;
+        line-height: 1.5;
+        min-height: 100vh;
+        position: relative;
+        background-image: url('https://iemariacano.edu.co/wp-content/uploads/2020/02/fondo.jpg');
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+    }
+
+    /* Capa protectora semitransparente (Overlay) */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-color: rgba(248, 249, 252, 0.507);
+        z-index: -1;
+    }
+
+    /* Tipografías */
+    h1, h2, h3, h4, .brand-text {
+        font-family: 'DM Serif Display', serif;
+        font-weight: 400;
+    }
+
+    .font-mono, .section-label, .badge, .audit-log, .code-header {
+        font-family: 'DM Mono', monospace;
+    }
+
+    .section-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: #ff8a80;
+        display: inline-block;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Navegación Glassmorphism */
+    .nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(248, 249, 252, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        padding: 0.75rem 0;
+    }
+
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 var(--gap);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Alineación de Marca con Logo */
+    .nav-brand {
+        text-decoration: none;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .brand-logo {
+        height: 42px;
+        width: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
+
+    .nav-brand .brand-text {
+        font-size: 1.5rem;
+    }
+
+    .nav-list {
+        display: flex;
+        list-style: none;
+        gap: 1.5rem;
+    }
+
+    .nav-list a {
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+        padding-bottom: 4px;
+        border-bottom: 2px solid transparent;
+        transition: all 0.2s ease;
+    }
+
+    .nav-list a.active, .nav-list a:hover {
+        color: var(--accent);
+        border-bottom-color: var(--accent);
+    }
+
+    /* Hero Destacado Oscuro */
+    .hero-module-simple {
+        max-width: 1200px;
+        margin: 2rem auto 1.5rem auto;
+        padding: 2.5rem 2rem;
+        background: linear-gradient(135deg, var(--dark-surface) 0%, var(--dark-bg) 100%);
+        color: #ffffff;
+        border-left: 6px solid var(--accent);
+        border-radius: var(--radius);
+        text-align: left;
+        box-shadow: var(--shadow);
+    }
+
+    .hero-module-simple h1 {
+        color: #ffffff;
+        font-size: 2.1rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .hero-module-simple p {
+        color: #b0bec5;
+        font-size: 0.95rem;
+    }
+
+    /* Grid Layout Principal (2fr 1fr) */
+    .wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 var(--gap) 3rem var(--gap);
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+        align-items: start;
+    }
+
+    /* Tarjeta Principal */
+    .form-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+    }
+
+    .card-header-table {
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card-header-table .subtitle {
+        font-size: 0.82rem;
+        color: var(--muted);
+    }
+
+    /* Tarjetas de Solicitudes */
+    .stat-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 1.25rem;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    /* Badges */
+    .badge {
+        padding: 0.3rem 0.8rem;
+        border-radius: 40px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        display: inline-block;
+    }
+
+    .status-presente { background: var(--success-bg); color: var(--success); }
+    .status-ausente  { background: var(--danger-bg); color: var(--danger); }
+    .status-tarde    { background: var(--warning-bg); color: var(--warning); }
+
+    /* Botones Estilo Píldora */
+    .btn-primary, .btn-secondary, .sidebar-btn {
+        padding: 0.65rem 1.25rem;
+        border-radius: 40px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        border: 1px solid transparent;
+        transition: all 0.2s ease;
+        font-family: 'Outfit', sans-serif;
+    }
+
+    .btn-primary, .sidebar-btn.primary { 
+        background: var(--accent); 
+        color: white; 
+    }
+
+    .btn-primary:hover, .sidebar-btn.primary:hover { 
+        background: var(--accent-hover); 
+        box-shadow: 0 4px 12px rgba(198, 40, 40, 0.25);
+    }
+
+    .btn-secondary { 
+        background: var(--surface2); 
+        border-color: var(--border); 
+        color: var(--text); 
+    }
+
+    .btn-secondary:hover { 
+        background: var(--surface); 
+    }
+
+    /* Sidebar Sticky */
+    .sidebar {
+        position: sticky;
+        top: 90px;
+    }
+
+    .summary-box {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: var(--shadow);
+    }
+
+    .sidebar-btn {
+        width: 100%;
+    }
+
+    /* Bloque de Código/Auditoría Oscuro */
+    .code-block {
+        background: var(--dark-surface);
+        color: #e0e0e0;
+        border-radius: var(--radius);
+        padding: 1.25rem;
+        box-shadow: var(--shadow);
+        border-left: 4px solid var(--accent);
+    }
+
+    .code-header {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--accent);
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+    }
+
+    .audit-log {
+        list-style: none;
+        font-size: 0.82rem;
+    }
+
+    .audit-log li {
+        padding: 0.6rem 0;
+        border-bottom: 1px dashed rgba(255,255,255,0.15);
+    }
+
+    .audit-log li:last-child {
+        border-bottom: none;
+    }
+
+    .audit-log .time {
+        display: block;
+        font-size: 0.72rem;
+        color: #9e9e9e;
+        margin-top: 0.2rem;
+    }
+
+    /* Responsividad en 900px */
+    @media (max-width: 900px) {
+        .wrapper { 
+            grid-template-columns: 1fr; 
+        }
+        .sidebar {
+            position: static;
+        }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navegación Sticky con Logo Integrado -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="#" class="nav-brand">
+        <!-- Logo/Escudo Institucional en la esquina superior izquierda -->
+        <img src="https://admin.iemariacano.edu.co/utilidades/escudo.gif" alt="Escudo IE María Cano" class="brand-logo"
+        alt="Escudo I.E. María Cano" 
+        class="institutional-logo">
+          <div style="display: flex; flex-direction: column; margin-left: 12px;">
+                        <span class="brand-text">I.E. MARÍA CANO</span>
+                        <span style="font-family: 'DM Mono'; font-size: 0.7rem; color: var(--accent); font-weight: 500;">MAGO · PLATAFORMA</span>
+                    </div>
+      </a>
+
+      <ul class="nav-list">
+                <li><a href="/MAGO/VISTA/INDEX/PAGINA INICIAL/PIS.html" class="active">INICIO</a></li> 
+                <li><a href="/MAGO/VISTA/INDEX/PAGINA INICIAL/REGISTRO DE ASISTENCIA/REG.html">REGISTRO</a></li>
+                <li><a href="/MAGO/VISTA/INDEX/PAGINA INICIAL/REPORTES/REP.html">REPORTES</a></li>
+                <li><a href="/MAGO/VISTA/INDEX/PAGINA INICIAL/PANEL DE CONTROL/PANEL.html">CONTROL</a></li>
+                <li><a href="/MAGO/VISTA/INDEX/SALIR/SALIR.HTML">SALIR</a></li>
+     </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Breve -->
+  <header class="hero-module-simple">
+    <span class="section-label">Módulo Administrativo</span>
+    <h1>Bandeja de Permisos en Tiempo Real</h1>
+    <p>Revisa, autoriza o deniega las solicitudes de salida de los estudiantes ordenadas por hora de llegada.</p>
+  </header>
+
+  <!-- Grid Principal (2fr / 1fr) -->
+  <div class="wrapper">
+    
+    <!-- Columna Izquierda: Solicitudes Entrantes -->
+    <main class="main-content">
+      <div class="form-card">
+        <div class="card-header-table">
+          <div>
+            <h3>Solicitudes Recibidas</h3>
+            <span class="subtitle">Ordenadas por hora de llegada (Recientes primero)</span>
+          </div>
+          <span class="badge status-tarde">Pendientes</span>
+        </div>
+
+        <div class="requests-list" style="padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem;">
+          
+          <!-- Solicitud de Ejemplo 1 -->
+          <div class="stat-card" style="display: block; border-left: 4px solid var(--warning);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+              <div>
+                <span class="font-mono" style="color: var(--accent); font-weight: 700; font-size: 0.85rem;">10:15 AM</span>
+                <h4 style="font-size: 1.1rem; margin-top: 0.2rem;">Juan Pablo Pérez — 11°A</h4>
+              </div>
+              <span class="badge status-tarde">PENDIENTE</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.88rem; margin-bottom: 1rem; background: var(--surface2); padding: 0.75rem; border-radius: 8px;">
+              <div><strong style="color: var(--muted);">Destino:</strong> Cafetería</div>
+              <div><strong style="color: var(--muted);">Dirigido a:</strong> Prof. Ana Gómez</div>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+              <button type="button" class="btn-secondary" style="color: var(--danger); border-color: rgba(198,40,40,0.3);">
+                Denegar
+              </button>
+              <button type="button" class="btn-primary" style="background: var(--success);">
+                Aceptar
+              </button>
+            </div>
+          </div>
+
+          <!-- Solicitud de Ejemplo 2 -->
+          <div class="stat-card" style="display: block; border-left: 4px solid var(--success);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+              <div>
+                <span class="font-mono" style="color: var(--accent); font-weight: 700; font-size: 0.85rem;">09:50 AM</span>
+                <h4 style="font-size: 1.1rem; margin-top: 0.2rem;">Mariana López — 10°B</h4>
+              </div>
+              <span class="badge status-presente">APROBADO</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.88rem; background: var(--surface2); padding: 0.75rem; border-radius: 8px;">
+              <div><strong style="color: var(--muted);">Destino:</strong> Coordinación</div>
+              <div><strong style="color: var(--muted);">Dirigido a:</strong> Coord. Pedro Martínez</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+    <!-- Columna Derecha: Firma Digital y Log de Auditoría -->
+    <aside class="sidebar">
+      <div class="summary-box">
+        <h3>Firma de Conformidad</h3>
+        <p style="font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem;">
+          Firme interactiva para validar el lote de solicitudes procesadas.
+        </p>
+
+        <!-- Lienzo para Firma Digital -->
+        <div style="position: relative; margin-bottom: 1rem;">
+          <canvas id="signatureCanvas" width="280" height="120" style="border: 2px dashed var(--border); background: var(--surface2); border-radius: 8px; cursor: crosshair; width: 100%; display: block;"></canvas>
+          <button type="button" onclick="clearSignature()" style="position: absolute; top: 6px; right: 6px; font-size: 0.7rem; background: var(--surface); border: 1px solid var(--border); padding: 2px 6px; border-radius: 4px; cursor: pointer;" class="font-mono">Limpiar</button>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <label style="font-size: 0.75rem; font-weight: 600; color: var(--muted); display: block; margin-bottom: 0.2rem;">Responsable de Turno</label>
+          <input type="text" value="Lic. Roberto Gómez" readonly style="width: 100%; padding: 0.58rem; font-size: 0.85rem; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; outline: none;">
+        </div>
+
+        <button type="button" class="sidebar-btn primary" style="justify-content: center;">
+          ✍️ Cerrar y Firmar Proceso
+        </button>
+      </div>
+
+      <!-- Log de Auditoría -->
+      <div class="code-block">
+        <div class="code-header">● Registro de Actividad</div>
+        <ul class="audit-log">
+          <li>
+            Permiso #1042 Aprobado
+            <span class="time">09:50 AM — Lic. Roberto Gómez</span>
+          </li>
+          <li>
+            Permiso #1041 Denegado
+            <span class="time">09:12 AM — Lic. Roberto Gómez</span>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Scripts Integrados -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.querySelector('.requests-list');
+        const auditLog = document.querySelector('.audit-log');
+
+        function renderRequests() {
+            const requests = JSON.parse(localStorage.getItem('mago_requests') || '[]');
+            if (requests.length === 0) return;
+
+            requests.sort((a, b) => b.rawTime - a.rawTime);
+
+            container.innerHTML = requests.map(req => `
+                <div class="stat-card" style="display: block; border-left: 4px solid ${getStatusBorder(req.status)};">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+                        <div>
+                            <span class="font-mono" style="color: var(--accent); font-weight: 700; font-size: 0.85rem;">${req.timestamp}</span>
+                            <h4 style="font-size: 1.1rem; margin-top: 0.2rem;">${req.student}</h4>
+                        </div>
+                        <span class="badge ${getStatusBadgeClass(req.status)}">${req.status.toUpperCase()}</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.88rem; margin-bottom: 0.75rem; background: var(--surface2); padding: 0.75rem; border-radius: 8px;">
+                        <div><strong style="color: var(--muted);">Destino:</strong> ${req.destination}</div>
+                        <div><strong style="color: var(--muted);">Dirigido a:</strong> ${req.targetPerson}</div>
+                    </div>
+                    ${req.status === 'pendiente' ? `
+                        <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+                            <button onclick="updateStatus('${req.id}', 'denegado')" class="btn-secondary" style="color: var(--danger); border-color: rgba(198,40,40,0.3);">Denegar</button>
+                            <button onclick="updateStatus('${req.id}', 'aprobado')" class="btn-primary" style="background: var(--success);">Aceptar</button>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        window.getStatusBorder = (status) => status === 'aprobado' ? 'var(--success)' : status === 'denegado' ? 'var(--danger)' : 'var(--warning)';
+        window.getStatusBadgeClass = (status) => status === 'aprobado' ? 'status-presente' : status === 'denegado' ? 'status-ausente' : 'status-tarde';
+
+        window.updateStatus = (id, newStatus) => {
+            let requests = JSON.parse(localStorage.getItem('mago_requests') || '[]');
+            requests = requests.map(r => r.id === id ? { ...r, status: newStatus } : r);
+            localStorage.setItem('mago_requests', JSON.stringify(requests));
+
+            const item = document.createElement('li');
+            item.innerHTML = `Solicitud ${id} ${newStatus.toUpperCase()} <span class="time">${new Date().toLocaleTimeString()} — Por Superior</span>`;
+            auditLog.prepend(item);
+
+            renderRequests();
+        };
+
+        renderRequests();
+
+        // Canvas de Firma
+        const canvas = document.getElementById('signatureCanvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let drawing = false;
+
+            canvas.addEventListener('mousedown', () => drawing = true);
+            canvas.addEventListener('mouseup', () => { drawing = false; ctx.beginPath(); });
+            canvas.addEventListener('mousemove', draw);
+
+            function draw(e) {
+                if (!drawing) return;
+                const rect = canvas.getBoundingClientRect();
+                ctx.lineWidth = 2;
+                ctx.lineCap = 'round';
+                ctx.strokeStyle = '#111111';
+                ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+            }
+
+            window.clearSignature = () => ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    });
+  </script>
+</body>
+</html>
